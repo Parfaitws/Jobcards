@@ -1,12 +1,13 @@
 // Job Card data: Allison Teague, 16/10
 window.JOB = {
+  proposal: "3320382",
   client: "Allison Teague",
   address: "75 Buena Vista Ave",
   city: "Mill Valley, CA 94941",
   phone: "(650) 823-8908",
   crew: ["João"],
   today: {en:"Friday, Oct 16", es:"Viernes 16 de oct", pt:"Sexta, 16 de out"},
-  time: {en:"8:00 AM to 1:30 PM, proposal #3320382", es:"8:00 AM a 1:30 PM, propuesta #3320382", pt:"8:00 às 13:30, proposta #3320382"},
+  time: {en:"8:00 AM to 1:30 PM", es:"8:00 AM a 1:30 PM", pt:"8:00 às 13:30"},
   rooms: [
   {name:{en:"Guest Bedroom",es:"Cuarto de huéspedes",pt:"Quarto de hóspedes"},
    area:{en:"4 walls, ceiling height 93″",es:"4 paredes, altura del techo 93″",pt:"4 paredes, altura do teto 93″"},
