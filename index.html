@@ -106,6 +106,12 @@ h2{margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-
 .spec small{display:block;font-size:12px;color:var(--muted)}
 .spec b{display:block;font-size:15px}
 .note{margin-bottom:14px}
+.scope small{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:4px}
+.scope #d-scope{font-size:17px;line-height:1.45;font-weight:500}
+.facts{list-style:none;margin:12px 0 0;padding:12px 0 0;border-top:1px solid var(--line,#e8e0d2);display:grid;gap:6px}
+.facts li{display:flex;justify-content:space-between;gap:12px;font-size:15px}
+.facts li span{color:var(--muted)}
+.facts li b{text-align:right}
 .note small{display:block;font-size:13px;font-weight:600;color:var(--muted)}
 .nolink{border-style:dashed;color:var(--muted)}
 .mark{min-height:56px;border-radius:14px;font-size:16px;font-weight:700;border:0;background:var(--navy);color:#fff}
@@ -205,6 +211,7 @@ h2{margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0" aria-hidden="true"><path d="M12 3l9.5 17h-19L12 3z"/><path d="M12 10v4"/><path d="M12 17.5v.01"/></svg>
       <span id="d-warn-t"></span>
     </div>
+    <div class="card scope" id="d-scope-wrap" hidden><small id="t-scope"></small><div id="d-scope"></div><ul class="facts" id="d-facts"></ul></div>
     <div class="wall"><span id="t-wall"></span><ol class="walls" id="d-wall"></ol></div>
     <div class="card">
       <div class="paper">
@@ -240,11 +247,11 @@ h2{margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-
 <script>
 function start(){
 const T = {
-  en:{sub:'Job card',today:'Friday, Oct 16',time:'8:00 AM to 1:30 PM, proposal #3320382',crewtbd:'Crew to confirm',maps:'Open in Maps',call:'Call contact',phone:'[client phone]',team:'Crew',rooms:'Rooms',done:(n,t)=>`${n} of ${t} done`,back:'All rooms',of:(i,t)=>`Room ${i} of ${t}`,wall:'Walls and ceiling',wallN:n=>n==='c'?'Ceiling':`Wall ${n}`,tbd:'Size to confirm',sitephotos:'Site photos',nophotos:'No photos',nphotos:n=>n===1?'1 photo':`${n} photos`,paperTbd:'Wallpaper to confirm',photo:'Paper',paper:'Wallpaper',notes:'Notes',view:'View product',noLink:'No product link',mark:'Mark room as done',marked:'Room done, tap to undo',finish:'Finish job',finishReady:'All rooms done, finish job',check:'Check',prev:'Previous',next:'Next room',finished:'Job finished. Nice work.',
+  en:{sub:'Job card',today:'Friday, Oct 16',time:'8:00 AM to 1:30 PM, proposal #3320382',crewtbd:'Crew to confirm',maps:'Open in Maps',call:'Call contact',phone:'[client phone]',team:'Crew',rooms:'Rooms',done:(n,t)=>`${n} of ${t} done`,back:'All rooms',of:(i,t)=>`Room ${i} of ${t}`,wall:'Walls to cover',scope:'Scope of work',wallN:n=>n==='c'?'Ceiling':`Wall ${n}`,tbd:'Size to confirm',sitephotos:'Site photos',nophotos:'No photos',nphotos:n=>n===1?'1 photo':`${n} photos`,paperTbd:'Wallpaper to confirm',photo:'Paper',paper:'Wallpaper',notes:'Notes',view:'View product',noLink:'No product link',mark:'Mark room as done',marked:'Room done, tap to undo',finish:'Finish job',finishReady:'All rooms done, finish job',check:'Check',prev:'Previous',next:'Next room',finished:'Job finished. Nice work.',
     s:{rolls:'Rolls',roll:'Roll size',repeat:'Pattern repeat',material:'Material',colorway:'Color',batch:'Batch'}},
-  es:{sub:'Orden de trabajo',today:'Viernes 16 de oct',time:'8:00 AM a 1:30 PM, propuesta #3320382',crewtbd:'Equipo por confirmar',maps:'Abrir en Maps',call:'Llamar al contacto',phone:'[teléfono del cliente]',team:'Equipo',rooms:'Ambientes',done:(n,t)=>`${n} de ${t} listos`,back:'Todos los ambientes',of:(i,t)=>`Ambiente ${i} de ${t}`,wall:'Paredes y techo',wallN:n=>n==='c'?'Techo':`Pared ${n}`,tbd:'Medida por confirmar',sitephotos:'Fotos del lugar',nophotos:'Sin fotos',nphotos:n=>n===1?'1 foto':`${n} fotos`,paperTbd:'Papel por confirmar',photo:'Papel',paper:'Papel tapiz',notes:'Notas',view:'Ver producto',noLink:'Sin link del producto',mark:'Marcar ambiente como listo',marked:'Ambiente listo, toca para deshacer',finish:'Terminar trabajo',finishReady:'Todo listo, terminar trabajo',check:'Revisar',prev:'Anterior',next:'Siguiente',finished:'Trabajo terminado. Buen trabajo.',
+  es:{sub:'Orden de trabajo',today:'Viernes 16 de oct',time:'8:00 AM a 1:30 PM, propuesta #3320382',crewtbd:'Equipo por confirmar',maps:'Abrir en Maps',call:'Llamar al contacto',phone:'[teléfono del cliente]',team:'Equipo',rooms:'Ambientes',done:(n,t)=>`${n} de ${t} listos`,back:'Todos los ambientes',of:(i,t)=>`Ambiente ${i} de ${t}`,wall:'Paredes a cubrir',scope:'Descripción del trabajo',wallN:n=>n==='c'?'Techo':`Pared ${n}`,tbd:'Medida por confirmar',sitephotos:'Fotos del lugar',nophotos:'Sin fotos',nphotos:n=>n===1?'1 foto':`${n} fotos`,paperTbd:'Papel por confirmar',photo:'Papel',paper:'Papel tapiz',notes:'Notas',view:'Ver producto',noLink:'Sin link del producto',mark:'Marcar ambiente como listo',marked:'Ambiente listo, toca para deshacer',finish:'Terminar trabajo',finishReady:'Todo listo, terminar trabajo',check:'Revisar',prev:'Anterior',next:'Siguiente',finished:'Trabajo terminado. Buen trabajo.',
     s:{rolls:'Rollos',roll:'Medida del rollo',repeat:'Repetición',material:'Material',colorway:'Color',batch:'Lote'}},
-  pt:{sub:'Ordem de serviço',today:'Sexta, 16 de out',time:'8:00 às 13:30, proposta #3320382',crewtbd:'Equipe a confirmar',maps:'Abrir no Maps',call:'Ligar p/ contato',phone:'[telefone do cliente]',team:'Equipe',rooms:'Ambientes',done:(n,t)=>`${n} de ${t} prontos`,back:'Todos os ambientes',of:(i,t)=>`Ambiente ${i} de ${t}`,wall:'Paredes e teto',wallN:n=>n==='c'?'Teto':`Parede ${n}`,tbd:'Medida a confirmar',sitephotos:'Fotos do local',nophotos:'Sem fotos',nphotos:n=>n===1?'1 foto':`${n} fotos`,paperTbd:'Papel a confirmar',photo:'Papel',paper:'Papel de parede',notes:'Observações',view:'Ver produto',noLink:'Sem link do produto',mark:'Marcar ambiente como pronto',marked:'Ambiente pronto, toque p/ desfazer',finish:'Finalizar trabalho',finishReady:'Tudo pronto, finalizar trabalho',check:'Conferir',prev:'Anterior',next:'Próximo',finished:'Trabalho finalizado. Bom trabalho.',
+  pt:{sub:'Ordem de serviço',today:'Sexta, 16 de out',time:'8:00 às 13:30, proposta #3320382',crewtbd:'Equipe a confirmar',maps:'Abrir no Maps',call:'Ligar p/ contato',phone:'[telefone do cliente]',team:'Equipe',rooms:'Ambientes',done:(n,t)=>`${n} de ${t} prontos`,back:'Todos os ambientes',of:(i,t)=>`Ambiente ${i} de ${t}`,wall:'Paredes a cobrir',scope:'Descrição do serviço',wallN:n=>n==='c'?'Teto':`Parede ${n}`,tbd:'Medida a confirmar',sitephotos:'Fotos do local',nophotos:'Sem fotos',nphotos:n=>n===1?'1 foto':`${n} fotos`,paperTbd:'Papel a confirmar',photo:'Papel',paper:'Papel de parede',notes:'Observações',view:'Ver produto',noLink:'Sem link do produto',mark:'Marcar ambiente como pronto',marked:'Ambiente pronto, toque p/ desfazer',finish:'Finalizar trabalho',finishReady:'Tudo pronto, finalizar trabalho',check:'Conferir',prev:'Anterior',next:'Próximo',finished:'Trabalho finalizado. Bom trabalho.',
     s:{rolls:'Rolos',roll:'Medida do rolo',repeat:'Repetição',material:'Material',colorway:'Cor',batch:'Lote'}}
 };
 const trad={en:'Traditional',es:'Tradicional',pt:'Tradicional'};
@@ -286,6 +293,7 @@ function render(){
     $('d-name').textContent=p(r.name);
     $('d-area').textContent=p(r.area);
     $('d-warn').hidden=!r.warn; $('d-warn-t').textContent=r.warn?p(r.warn):'';
+    $('d-scope-wrap').hidden=!r.scope;$('t-scope').textContent=t.scope;$('d-scope').textContent=r.scope?p(r.scope):'';$('d-facts').innerHTML=(r.facts||[]).map(x=>`<li><span>${esc(p(x.k))}</span><b>${esc(p(x.v))}</b></li>`).join('');$('d-facts').hidden=!(r.facts&&r.facts.length);
     $('d-wall').innerHTML=r.walls.map((w,k)=>`<li class="${w&&w.s?'':'tbd'}"><em>${esc(t.wallN(w&&w.n?w.n:k+1))}</em><div><b>${esc(w&&w.s?w.s:t.tbd)}</b>${w&&w.d?`<small class="wd">${esc(p(w.d))}</small>`:''}</div></li>`).join('');
     const sw=$('t-photo');if(r.swatch){sw.classList.add('has-img');sw.innerHTML=`<img src="${r.swatch}" alt="${esc(r.paper||'')}">`;}else{sw.classList.remove('has-img');}$('d-paper').textContent=r.paper||t.paperTbd; $('d-brand').textContent=r.brand;
     $('d-specs').hidden=!r.specs.length;$('d-specs').innerHTML=r.specs.map(([k,v])=>`<div class="spec"><small>${esc(t.s[k])}</small><b>${esc(p(v))}</b></div>`).join('');
