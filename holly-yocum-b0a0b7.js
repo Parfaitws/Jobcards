@@ -3,7 +3,7 @@ window.JOB = {
  "client": "Holly Yocum",
  "address": "338 Main St, Unit 30B",
  "city": "San Francisco, CA 94105",
- "phone": "Emily · (650) 487-3350",
+ "phone": "",
  "crew": [
   "João"
  ],
