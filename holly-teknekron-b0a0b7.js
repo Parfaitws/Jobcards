@@ -1,5 +1,6 @@
 // Job Card data: Holly Teknekron, 17/10
 window.JOB = {
+ "proposal": "3379921",
  "client": "Holly Teknekron",
  "address": "338 Main St, Unit 30B",
  "city": "San Francisco, CA 94105",
@@ -13,9 +14,9 @@ window.JOB = {
   "pt": "Sábado, 17 de out"
  },
  "time": {
-  "en": "8:00 AM to 2:00 PM, proposal #3379921",
-  "es": "8:00 AM a 2:00 PM, propuesta #3379921",
-  "pt": "8:00 às 14:00, proposta #3379921"
+  "en": "8:00 AM to 2:00 PM",
+  "es": "8:00 AM a 2:00 PM",
+  "pt": "8:00 às 14:00"
  },
  "rooms": [
   {
