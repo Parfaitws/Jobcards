@@ -1,4 +1,4 @@
-// Job Card data: Holly Yocum, 17/10
+// Job Card data: Holly Teknekron, 17/10
 window.JOB = {
  "client": "Holly Teknekron",
  "address": "338 Main St, Unit 30B",
