@@ -58,6 +58,7 @@ main{max-width:520px;margin:0 auto;padding:22px 20px 40px}
 h1{margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:40px;line-height:1.05;color:var(--ink)}
 h2{margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:28px;color:var(--ink)}
 .sub{font-size:15px;color:var(--muted)}
+.prop{font-size:14px;font-weight:600;letter-spacing:.02em;color:var(--brass,#8a6a2f);margin:2px 0 4px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
 .addr{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px}
 .addr strong{display:block;font-size:17px}
@@ -171,6 +172,7 @@ h2{margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-
     <div>
       <div class="kicker" id="t-today"></div>
       <h1 id="j-name"></h1>
+      <div class="prop" id="j-prop" hidden></div>
       <div class="sub" id="t-time"></div>
     </div>
 
@@ -270,7 +272,7 @@ function render(){
   document.documentElement.lang=S.lang;
   document.querySelectorAll('.langs button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.lang===S.lang));
   ['sub','maps','call','team','rooms','back','wall','paper','notes'].forEach(k=>{const el=$('t-'+k);if(el)el.textContent=t[k];});
-  $('t-today').textContent=p(JOB.today);$('t-time').textContent=p(JOB.time);
+  $('t-today').textContent=p(JOB.today);$('j-prop').hidden=!JOB.proposal;$('j-prop').textContent=JOB.proposal?({en:'Proposal',es:'Propuesta',pt:'Proposta'}[S.lang])+' #'+JOB.proposal:'';$('t-time').textContent=p(JOB.time);
   const n=ROOMS.filter((_,i)=>S.done[i]).length;
   $('done-count').textContent=t.done(n,ROOMS.length);
   $('room-list').innerHTML=ROOMS.map((r,i)=>`<li><button class="room${S.done[i]?' done':''}" data-i="${i}" type="button">
