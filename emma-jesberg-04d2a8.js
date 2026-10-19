@@ -154,9 +154,9 @@ window.JOB = {
     "pt": "Sem refile: precisa refilar. Passar cola na parede, não no papel."
    },
    "warn": {
-    "en": "Pick up the wallpaper at the showroom before going.",
-    "es": "Recoger el papel en el showroom antes de ir.",
-    "pt": "Pegar o papel na showroom antes de ir."
+    "en": "Pick up the wallpaper at the showroom before going. It may be under: Emma Jesberg, Lucheta or EJ Interior.",
+    "es": "Recoger el papel en el showroom antes de ir. Puede estar a nombre de: Emma Jesberg, Lucheta o EJ Interior.",
+    "pt": "Pegar o papel na showroom antes de ir. Pode estar no nome de: Emma Jesberg, Lucheta ou EJ Interior."
    },
    "link": "https://christopherfarrcloth.com/ocean-squares-vinyl-wallpaper/"
   },
@@ -316,9 +316,9 @@ window.JOB = {
     "pt": "Material natural: pode ter variação de textura e cor. Conferir o papel antes de cortar."
    },
    "warn": {
-    "en": "Pick up the wallpaper at the showroom before going.",
-    "es": "Recoger el papel en el showroom antes de ir.",
-    "pt": "Pegar o papel na showroom antes de ir."
+    "en": "Pick up the wallpaper at the showroom before going. It may be under: Emma Jesberg, Lucheta or EJ Interior.",
+    "es": "Recoger el papel en el showroom antes de ir. Puede estar a nombre de: Emma Jesberg, Lucheta o EJ Interior.",
+    "pt": "Pegar o papel na showroom antes de ir. Pode estar no nome de: Emma Jesberg, Lucheta ou EJ Interior."
    },
    "link": "https://christopherfarrcloth.com/gozo-raffia-wallpaper/"
   }
