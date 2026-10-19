@@ -296,7 +296,7 @@ function render(){
     $('d-area').textContent=p(r.area);
     $('d-warn').hidden=!r.warn; $('d-warn-t').textContent=r.warn?p(r.warn):'';
     $('d-scope-wrap').hidden=!r.scope;$('t-scope').textContent=t.scope;$('d-scope').textContent=r.scope?p(r.scope):'';$('d-facts').innerHTML=(r.facts||[]).map(x=>`<li><span>${esc(p(x.k))}</span><b>${esc(p(x.v))}</b></li>`).join('');$('d-facts').hidden=!(r.facts&&r.facts.length);
-    $('d-wall').innerHTML=r.walls.map((w,k)=>`<li class="${w&&w.s?'':'tbd'}"><em>${esc(t.wallN(w&&w.n?w.n:k+1))}</em><div><b>${esc(w&&w.s?w.s:t.tbd)}</b>${w&&w.d?`<small class="wd">${esc(p(w.d))}</small>`:''}</div></li>`).join('');
+    $('d-wall').innerHTML=r.walls.map((w,k)=>`<li class="${w&&w.s?'':'tbd'}"><em>${esc(t.wallN(w&&w.n?w.n:k+1))}</em><div><b>${esc(w&&w.s?p(w.s):t.tbd)}</b>${w&&w.d?`<small class="wd">${esc(p(w.d))}</small>`:''}</div></li>`).join('');
     const sw=$('t-photo');if(r.swatch){sw.classList.add('has-img');sw.innerHTML=`<img src="${r.swatch}" alt="${esc(r.paper||'')}">`;}else{sw.classList.remove('has-img');}$('d-paper').textContent=r.paper||t.paperTbd; $('d-brand').textContent=r.brand;
     $('d-specs').hidden=!r.specs.length;$('d-specs').innerHTML=r.specs.map(([k,v])=>`<div class="spec"><small>${esc(t.s[k])}</small><b>${esc(p(v))}</b></div>`).join('');
     $('d-note-wrap').hidden=!r.note; $('d-note').textContent=r.note?p(r.note):'';
@@ -333,7 +333,7 @@ const m=location.hash.match(/room-(\d)/); if(m){S.room=Math.min(ROOMS.length,Mat
 
 let LB=-1;
 $('ptab-btn').addEventListener('click',()=>{PO=!PO;render();});
-function wsize(r,n){const w=(r.walls||[]).find(w=>w&&w.n===n);return w?w.s:'';}
+function wsize(r,n){const w=(r.walls||[]).find(w=>w&&w.n===n);return w?p(w.s):'';}
 function photoCap(ph,t){return ph.wall?t.wallN(ph.wall):(ph.cap?p(ph.cap):t.sitephotos);}
 function renderLB(){
   const t=T[S.lang],r=ROOMS[S.room],lb=$('lb');
