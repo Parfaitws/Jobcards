@@ -153,6 +153,11 @@ window.JOB = {
     "es": "Sin refilar: hay que refilar. Pegar en la pared, no en el papel.",
     "pt": "Sem refile: precisa refilar. Passar cola na parede, não no papel."
    },
+   "warn": {
+    "en": "Pick up the wallpaper at the showroom before going.",
+    "es": "Recoger el papel en el showroom antes de ir.",
+    "pt": "Pegar o papel na showroom antes de ir."
+   },
    "link": "https://christopherfarrcloth.com/ocean-squares-vinyl-wallpaper/"
   },
   {
@@ -309,6 +314,11 @@ window.JOB = {
     "en": "Natural material: slight variation in texture and color is normal. Check the paper before cutting.",
     "es": "Material natural: puede haber variación de textura y color. Revisar el papel antes de cortar.",
     "pt": "Material natural: pode ter variação de textura e cor. Conferir o papel antes de cortar."
+   },
+   "warn": {
+    "en": "Pick up the wallpaper at the showroom before going.",
+    "es": "Recoger el papel en el showroom antes de ir.",
+    "pt": "Pegar o papel na showroom antes de ir."
    },
    "link": "https://christopherfarrcloth.com/gozo-raffia-wallpaper/"
   }
