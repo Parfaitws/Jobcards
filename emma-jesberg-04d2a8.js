@@ -63,9 +63,9 @@ window.JOB = {
       "pt": "Escada"
      },
      "v": {
-      "en": "Size to confirm",
-      "es": "Tamaño por confirmar",
-      "pt": "Tamanho a confirmar"
+      "en": "Ladder to reach 103″",
+      "es": "Escalera para alcanzar 103″",
+      "pt": "Escada para alcançar 103″"
      }
     },
     {
@@ -199,9 +199,9 @@ window.JOB = {
       "pt": "Escada"
      },
      "v": {
-      "en": "Size to confirm",
-      "es": "Tamaño por confirmar",
-      "pt": "Tamanho a confirmar"
+      "en": "Ladder to reach 101″",
+      "es": "Escalera para alcanzar 101″",
+      "pt": "Escada para alcançar 101″"
      }
     },
     {
