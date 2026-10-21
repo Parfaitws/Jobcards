@@ -272,7 +272,7 @@ function render(){
   document.documentElement.lang=S.lang;
   document.querySelectorAll('.langs button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.lang===S.lang));
   ['sub','maps','call','team','rooms','back','wall','paper','notes'].forEach(k=>{const el=$('t-'+k);if(el)el.textContent=t[k];});
-  $('t-today').textContent=p(JOB.today);if(!(JOB.crew&&JOB.crew.length))$('j-crew').innerHTML=`<span style="font-weight:600">${esc(p({en:'To confirm',es:'Por confirmar',pt:'A confirmar'}))}</span>`;$('j-prop').hidden=!JOB.proposal;$('j-prop').textContent=JOB.proposal?({en:'Proposal',es:'Propuesta',pt:'Proposta'}[S.lang])+' #'+JOB.proposal:'';$('t-time').textContent=p(JOB.time);
+  $('t-today').textContent=p(JOB.today);$('j-prop').hidden=!JOB.proposal;$('j-prop').textContent=JOB.proposal?({en:'Proposal',es:'Propuesta',pt:'Proposta'}[S.lang])+' #'+JOB.proposal:'';$('t-time').textContent=p(JOB.time);
   const n=ROOMS.filter((_,i)=>S.done[i]).length;
   $('done-count').textContent=t.done(n,ROOMS.length);
   $('room-list').innerHTML=ROOMS.map((r,i)=>`<li><button class="room${S.done[i]?' done':''}" data-i="${i}" type="button">
@@ -358,7 +358,7 @@ function setupJob(){
   $('j-tel').href='tel:+1'+String(JOB.phone).replace(/\D/g,'').slice(-10);
   $('j-phone').textContent=JOB.phone;
   if(!JOB.phone){$('j-tel').style.display='none';$('j-tel').parentElement.style.gridTemplateColumns='1fr';}
-  $('j-crew').innerHTML=(JOB.crew&&JOB.crew.length)?JOB.crew.map(n=>`<span class="pill"><i>${esc(n.charAt(0))}</i>${esc(n)}</span>`).join(''):`<span style="font-weight:600">${esc(p({en:'To confirm',es:'Por confirmar',pt:'A confirmar'}))}</span>`;
+  $('j-crew').innerHTML=(JOB.crew&&JOB.crew.length)?JOB.crew.map(n=>`<span class="pill"><i>${esc(n.charAt(0))}</i>${esc(n)}</span>`).join(''):'';$('j-crew').parentElement.style.display=(JOB.crew&&JOB.crew.length)?'':'none';
 }
 setupJob();
 render();
