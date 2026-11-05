@@ -86,6 +86,7 @@ h2{margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-
 .finish.ready{background:var(--navy);color:#fff}
 
 .back{align-self:flex-start;min-height:44px;display:flex;align-items:center;gap:6px;padding:0 12px 0 2px;background:transparent;border:0;color:var(--ink);font-size:15px;font-weight:600;margin:-10px 0 -6px}
+.warn.red{background:#FDE8E6;color:#B42318;border:1.5px solid #F2B8B1;font-weight:700}
 .warn{display:flex;gap:10px;padding:12px 14px;background:var(--warn-bg);color:var(--warn-ink);border-radius:12px;font-size:15px;line-height:1.4}
 .wall{background:var(--wall);color:var(--navy);border:1px solid #E8D9B8;border-radius:16px;padding:16px}
 .wall span{display:block;font-size:13px;font-weight:600;color:var(--gold-ink)}
@@ -298,7 +299,7 @@ function render(){
     $('d-of').textContent=t.of(i+1,ROOMS.length);
     $('d-name').textContent=p(r.name);
     $('d-area').textContent=p(r.area);
-    $('d-warn').hidden=!r.warn; $('d-warn-t').textContent=r.warn?p(r.warn):''; $('d-warn2').hidden=!r.warn2; $('d-warn2-t').textContent=r.warn2?p(r.warn2):'';
+    $('d-warn').hidden=!r.warn; $('d-warn-t').textContent=r.warn?p(r.warn):''; $('d-warn2').hidden=!r.warn2; $('d-warn2-t').textContent=r.warn2?p(r.warn2):''; const isPick=w=>{if(!w)return false;const t=typeof w==='string'?w:(w.pt||w.en||'');return /showroom|escrit[oó]rio/i.test(t)}; $('d-warn').classList.toggle('red',isPick(r.warn)); $('d-warn2').classList.toggle('red',isPick(r.warn2));
     $('d-scope-wrap').hidden=!r.scope;$('t-scope').textContent=t.scope;$('d-scope').textContent=r.scope?p(r.scope):'';$('d-facts').innerHTML=(r.facts||[]).map(x=>`<li><span>${esc(p(x.k))}</span><b>${esc(p(x.v))}</b></li>`).join('');$('d-facts').hidden=!(r.facts&&r.facts.length);
     $('d-wall').innerHTML=r.walls.map((w,k)=>`<li class="${w&&w.s?'':'tbd'}"><em>${esc(w&&w.lbl?p(w.lbl):t.wallN(w&&w.n?w.n:k+1))}</em><div><b>${esc(w&&w.s?p(w.s):t.tbd)}</b>${w&&w.d?`<small class="wd">${esc(p(w.d))}</small>`:''}</div></li>`).join('');
     $('d-paper-card').style.display=r.nopaper?'none':'';const sw=$('t-photo');if(r.swatch){sw.classList.add('has-img');sw.innerHTML=`<img src="${r.swatch}" alt="${esc(r.paper||'')}">`;}else{sw.classList.remove('has-img');}$('d-paper').textContent=r.paper||t.paperTbd; $('d-brand').textContent=r.brand;
