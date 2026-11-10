@@ -154,6 +154,7 @@ h2{margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-
 .shot .cap b{display:block;font-size:15px}
 .shot .cap small{display:block;font-size:13px;color:var(--muted)}
 @media (prefers-reduced-motion: no-preference){.screen{animation:in .18s ease-out}@keyframes in{from{opacity:0;transform:translateY(6px)}}}
+.designer{font-size:14px;color:#6b6457;margin:-2px 0 6px;font-weight:500}
 </style>
 </head>
 <body>
@@ -173,6 +174,7 @@ h2{margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-
     <div>
       <div class="kicker" id="t-today"></div>
       <h1 id="j-name"></h1>
+      <div class="designer" id="j-designer" hidden></div>
       <div class="prop" id="j-prop" hidden></div>
       <div class="sub" id="t-time"></div>
     </div>
@@ -277,7 +279,7 @@ function render(){
   document.documentElement.lang=S.lang;
   document.querySelectorAll('.langs button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.lang===S.lang));
   ['sub','maps','call','team','rooms','back','wall','paper','notes'].forEach(k=>{const el=$('t-'+k);if(el)el.textContent=t[k];});
-  $('t-today').textContent=p(JOB.today);$('j-prop').hidden=!JOB.proposal;$('j-prop').textContent=JOB.proposal?({en:'Proposal',es:'Propuesta',pt:'Proposta'}[S.lang])+' #'+JOB.proposal:'';$('t-time').textContent=p(JOB.time);
+  $('t-today').textContent=p(JOB.today);$('j-designer').hidden=!JOB.designer;$('j-designer').textContent=JOB.designer?({en:'Designer',es:'Diseñador(a)',pt:'Designer'}[S.lang])+': '+JOB.designer:'';$('j-prop').hidden=!JOB.proposal;$('j-prop').textContent=JOB.proposal?({en:'Proposal',es:'Propuesta',pt:'Proposta'}[S.lang])+' #'+JOB.proposal:'';$('t-time').textContent=p(JOB.time);
   const n=ROOMS.filter((_,i)=>S.done[i]).length;
   $('done-count').textContent=t.done(n,ROOMS.length);
   $('room-list').innerHTML=ROOMS.map((r,i)=>`<li><button class="room${S.done[i]?' done':''}" data-i="${i}" type="button">
