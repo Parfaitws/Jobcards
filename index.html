@@ -86,6 +86,9 @@ h2{margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-
 .finish.ready{background:var(--navy);color:#fff}
 
 .back{align-self:flex-start;min-height:44px;display:flex;align-items:center;gap:6px;padding:0 12px 0 2px;background:transparent;border:0;color:var(--ink);font-size:15px;font-weight:600;margin:-10px 0 -6px}
+.pickbar{display:flex;gap:8px;align-items:flex-start;padding:10px 12px;background:#FDE8E6;color:#B42318;border:1.5px solid #F2B8B1;border-radius:12px;font-size:14px;font-weight:700;line-height:1.35}
+.pickbar small{display:block;font-weight:500;font-size:13px;margin-top:2px}
+.warn-chip.red{background:#FDE8E6;color:#B42318}
 .warn.red{background:#FDE8E6;color:#B42318;border:1.5px solid #F2B8B1;font-weight:700}
 .warn{display:flex;gap:10px;padding:12px 14px;background:var(--warn-bg);color:var(--warn-ink);border-radius:12px;font-size:15px;line-height:1.4}
 .wall{background:var(--wall);color:var(--navy);border:1px solid #E8D9B8;border-radius:16px;padding:16px}
@@ -197,6 +200,8 @@ h2{margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-
       <span id="j-crew" style="display:contents"></span>
     </div>
 
+    <div class="pickbar" id="j-pick" hidden><span aria-hidden="true">📦</span><span id="j-pick-t"></span></div>
+
     <div class="rooms-head"><h2 id="t-rooms"></h2><span id="done-count"></span></div>
     <ul class="rooms" id="room-list"></ul>
 
@@ -254,6 +259,7 @@ h2{margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-
   <div class="lb-nav"><button id="lb-prev" type="button"></button><button id="lb-next" type="button"></button></div>
 </div>
 <script>
+const isPick=w=>{if(!w)return false;const t=typeof w==='string'?w:(w.pt||w.en||'');return /showroom|escrit[oó]rio/i.test(t)};
 function start(){
 const T = {
   en:{sub:'Job card',today:'Friday, Oct 16',time:'8:00 AM to 1:30 PM, proposal #3320382',crewtbd:'Crew to confirm',maps:'Open in Maps',call:'Call contact',phone:'[client phone]',team:'Crew',rooms:'Rooms',done:(n,t)=>`${n} of ${t} done`,back:'All rooms',of:(i,t)=>`Room ${i} of ${t}`,wall:'Walls to cover',scope:'Scope of work',wallN:n=>n==='c'?'Ceiling':`Wall ${n}`,tbd:'Size to confirm',sitephotos:'Site photos',nophotos:'No photos',nphotos:n=>n===1?'1 photo':`${n} photos`,paperTbd:'Wallpaper to confirm',photo:'Paper',paper:'Wallpaper',notes:'Notes',view:'View product',noLink:'No product link',mark:'Mark room as done',marked:'Room done, tap to undo',finish:'Finish job',finishReady:'All rooms done, finish job',check:'Check',prev:'Previous',next:'Next room',finished:'Job finished. Nice work.',
@@ -280,13 +286,16 @@ function render(){
   document.querySelectorAll('.langs button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.lang===S.lang));
   ['sub','maps','call','team','rooms','back','wall','paper','notes'].forEach(k=>{const el=$('t-'+k);if(el)el.textContent=t[k];});
   $('t-today').textContent=p(JOB.today);$('j-designer').hidden=!JOB.designer;$('j-designer').textContent=JOB.designer?({en:'Designer',es:'Diseñador(a)',pt:'Designer'}[S.lang])+': '+JOB.designer:'';$('j-prop').hidden=!JOB.proposal;$('j-prop').textContent=JOB.proposal?({en:'Proposal',es:'Propuesta',pt:'Proposta'}[S.lang])+' #'+JOB.proposal:'';$('t-time').textContent=p(JOB.time);
+  const pickRooms=ROOMS.map((r,i)=>({r,i})).filter(o=>(isPick(o.r.warn)||isPick(o.r.warn2))&&!S.done[o.i]);
+  $('j-pick').hidden=!pickRooms.length;
+  $('j-pick-t').innerHTML=pickRooms.length?esc({en:'Pick up wallpaper at the showroom',es:'Recoger papel en la showroom',pt:'Pegar papel na showroom'}[S.lang])+`<small>${pickRooms.map(o=>esc(p(o.r.name))).join(' · ')}</small>`:'';
   const n=ROOMS.filter((_,i)=>S.done[i]).length;
   $('done-count').textContent=t.done(n,ROOMS.length);
   $('room-list').innerHTML=ROOMS.map((r,i)=>`<li><button class="room${S.done[i]?' done':''}" data-i="${i}" type="button">
     <span class="badge">${S.done[i]?'✓':i+1}</span>
     <span class="txt"><b>${esc(p(r.name))}</b><small>${r.sub?esc(p(r.sub)):r.nopaper?esc(p(r.area)):esc(r.paper||t.paperTbd)}${r.rolls?`, ${esc(r.rolls)} ${esc(t.s.rolls.toLowerCase())}`:''}</small></span>
     ${r.photos&&r.photos.length?`<span class="cam"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>${r.photos.length}</span>`:''}
-    ${r.warn&&!S.done[i]?`<span class="warn-chip">${esc(t.check)}</span>`:''}
+    ${(r.warn||r.warn2)&&!S.done[i]?((isPick(r.warn)||isPick(r.warn2))?`<span class="warn-chip red">Showroom</span>`:`<span class="warn-chip">${esc(t.check)}</span>`):''}
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--muted);flex-shrink:0" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
   </button></li>`).join('');
   const all=n===ROOMS.length;
@@ -301,7 +310,7 @@ function render(){
     $('d-of').textContent=t.of(i+1,ROOMS.length);
     $('d-name').textContent=p(r.name);
     $('d-area').textContent=p(r.area);
-    $('d-warn').hidden=!r.warn; $('d-warn-t').textContent=r.warn?p(r.warn):''; $('d-warn2').hidden=!r.warn2; $('d-warn2-t').textContent=r.warn2?p(r.warn2):''; const isPick=w=>{if(!w)return false;const t=typeof w==='string'?w:(w.pt||w.en||'');return /showroom|escrit[oó]rio/i.test(t)}; $('d-warn').classList.toggle('red',isPick(r.warn)); $('d-warn2').classList.toggle('red',isPick(r.warn2));
+    $('d-warn').hidden=!r.warn; $('d-warn-t').textContent=r.warn?p(r.warn):''; $('d-warn2').hidden=!r.warn2; $('d-warn2-t').textContent=r.warn2?p(r.warn2):''; $('d-warn').classList.toggle('red',isPick(r.warn)); $('d-warn2').classList.toggle('red',isPick(r.warn2));
     $('d-scope-wrap').hidden=!r.scope;$('t-scope').textContent=t.scope;$('d-scope').textContent=r.scope?p(r.scope):'';$('d-facts').innerHTML=(r.facts||[]).map(x=>`<li><span>${esc(p(x.k))}</span><b>${esc(p(x.v))}</b></li>`).join('');$('d-facts').hidden=!(r.facts&&r.facts.length);
     $('d-wall').innerHTML=r.walls.map((w,k)=>`<li class="${w&&w.s?'':'tbd'}"><em>${esc(w&&w.lbl?p(w.lbl):t.wallN(w&&w.n?w.n:k+1))}</em><div><b>${esc(w&&w.s?p(w.s):t.tbd)}</b>${w&&w.d?`<small class="wd">${esc(p(w.d))}</small>`:''}</div></li>`).join('');
     $('d-paper-card').style.display=r.nopaper?'none':'';const sw=$('t-photo');if(r.swatch){sw.classList.add('has-img');sw.innerHTML=`<img src="${r.swatch}" alt="${esc(r.paper||'')}">`;}else{sw.classList.remove('has-img');}$('d-paper').textContent=r.paper||t.paperTbd; $('d-brand').textContent=r.brand;
