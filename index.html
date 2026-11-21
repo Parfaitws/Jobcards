@@ -371,6 +371,7 @@ function setupJob(){
   $('j-name').textContent=JOB.client;
   $('j-addr').textContent=JOB.address;$('j-city').textContent=JOB.city;
   $('j-maps').href='https://maps.google.com/?q='+encodeURIComponent(JOB.address+', '+JOB.city);
+  $('j-tel').style.display=JOB.phone?'':'none';
   $('j-tel').href='tel:+1'+String(JOB.phone).replace(/\D/g,'').slice(-10);
   $('j-phone').textContent=JOB.phone;
   if(!JOB.phone){$('j-tel').style.display='none';$('j-tel').parentElement.style.gridTemplateColumns='1fr';}
