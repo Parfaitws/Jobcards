@@ -86,6 +86,8 @@ h2{margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-
 .finish.ready{background:var(--navy);color:#fff}
 
 .back{align-self:flex-start;min-height:44px;display:flex;align-items:center;gap:6px;padding:0 12px 0 2px;background:transparent;border:0;color:var(--ink);font-size:15px;font-weight:600;margin:-10px 0 -6px}
+.accessbar{display:flex;gap:8px;align-items:flex-start;padding:10px 12px;background:#E8F0FB;color:#1F3A68;border:1.5px solid #B9CDEB;border-radius:12px;font-size:14px;line-height:1.4;margin-bottom:12px}
+.accessbar b{display:block;font-size:14px;margin-bottom:2px}
 .pickbar{display:flex;gap:8px;align-items:flex-start;padding:10px 12px;background:#FDE8E6;color:#B42318;border:1.5px solid #F2B8B1;border-radius:12px;font-size:14px;font-weight:700;line-height:1.35}
 .pickbar small{display:block;font-weight:500;font-size:13px;margin-top:2px}
 .warn-chip.red{background:#FDE8E6;color:#B42318}
@@ -200,6 +202,7 @@ h2{margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-
       <span id="j-crew" style="display:contents"></span>
     </div>
 
+    <div class="accessbar" id="j-access" hidden><span aria-hidden="true">🔑</span><span><b id="j-access-h"></b><span id="j-access-t"></span></span></div>
     <div class="pickbar" id="j-pick" hidden><span aria-hidden="true">📦</span><span id="j-pick-t"></span></div>
 
     <div class="rooms-head"><h2 id="t-rooms"></h2><span id="done-count"></span></div>
@@ -371,6 +374,8 @@ function setupJob(){
   $('j-name').textContent=JOB.client;
   $('j-addr').textContent=JOB.address;$('j-city').textContent=JOB.city;
   $('j-maps').href='https://maps.google.com/?q='+encodeURIComponent(JOB.address+', '+JOB.city);
+  $('j-access').hidden=!JOB.access;
+  if(JOB.access){$('j-access-h').textContent={en:'How to get in',es:'Cómo entrar',pt:'Como entrar'}[S.lang];$('j-access-t').textContent=p(JOB.access);}
   $('j-tel').style.display=JOB.phone?'':'none';
   $('j-tel').href='tel:+1'+String(JOB.phone).replace(/\D/g,'').slice(-10);
   $('j-phone').textContent=JOB.phone;
