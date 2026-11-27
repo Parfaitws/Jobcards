@@ -317,7 +317,7 @@ function render(){
     $('d-scope-wrap').hidden=!r.scope;$('t-scope').textContent=t.scope;$('d-scope').textContent=r.scope?p(r.scope):'';$('d-facts').innerHTML=(r.facts||[]).map(x=>`<li><span>${esc(p(x.k))}</span><b>${esc(p(x.v))}</b></li>`).join('');$('d-facts').hidden=!(r.facts&&r.facts.length);
     $('d-wall').innerHTML=r.walls.map((w,k)=>`<li class="${w&&w.s?'':'tbd'}"><em>${esc(w&&w.lbl?p(w.lbl):t.wallN(w&&w.n?w.n:k+1))}</em><div><b>${esc(w&&w.s?p(w.s):t.tbd)}</b>${w&&w.d?`<small class="wd">${esc(p(w.d))}</small>`:''}</div></li>`).join('');
     $('d-paper-card').style.display=r.nopaper?'none':'';const sw=$('t-photo');if(r.swatch){sw.classList.add('has-img');sw.innerHTML=`<img src="${r.swatch}" alt="${esc(r.paper||'')}">`;}else{sw.classList.remove('has-img');}$('d-paper').textContent=r.paper||t.paperTbd; $('d-brand').textContent=r.brand;
-    $('d-specs').hidden=!r.specs.length;$('d-specs').innerHTML=r.specs.map(([k,v])=>`<div class="spec"><small>${esc(t.s[k])}</small><b>${esc(p(v))}</b></div>`).join('');
+    $('d-specs').hidden=!(r.specs&&r.specs.length);$('d-specs').innerHTML=(r.specs||[]).map(([k,v])=>`<div class="spec"><small>${esc(t.s[k])}</small><b>${esc(p(v))}</b></div>`).join('');
     $('d-note-wrap').hidden=!r.note; $('d-note').textContent=r.note?p(r.note):'';
     const l=$('d-link');
     if(r.link){l.hidden=false;l.href=r.link;l.innerHTML=`${esc(t.view)} <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>`;$('d-nolink').hidden=true;}
